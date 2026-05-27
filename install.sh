@@ -20,7 +20,6 @@ FOUNDATION_HOME="${FOUNDATION_HOME:-${HOME}/.foundation}"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
-YELLOW='\033[0;33m'
 NC='\033[0m'
 
 error() {
@@ -111,15 +110,11 @@ install_binary() {
     mv "${tmp}/foundation" "${FOUNDATION_HOME}/bin/foundation"
     echo -e "${GREEN}✅ foundation v${version} installed to ${FOUNDATION_HOME}/bin/foundation${NC}"
 
-    case ":${PATH}:" in
-        *":${FOUNDATION_HOME}/bin:"*) ;;
-        *)
-            echo ""
-            echo -e "${YELLOW}NOTE: ${FOUNDATION_HOME}/bin is not on your PATH.${NC}"
-            echo "Add this to your ~/.zshrc or ~/.bashrc:"
-            echo "  export PATH=\"${FOUNDATION_HOME}/bin:\$PATH\""
-            ;;
-    esac
+    # Hand PATH setup to the freshly-installed binary: it detects the shell,
+    # prompts on /dev/tty (so it works under `curl ... | bash`), edits the rc
+    # file, and handles the already-on-PATH / unsupported-shell / no-tty cases
+    # itself. `|| true` so a PATH hiccup never fails an otherwise-good install.
+    "${FOUNDATION_HOME}/bin/foundation" setup-path || true
 }
 
 main() {
