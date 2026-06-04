@@ -127,7 +127,7 @@ install_binary() {
     fi
     mkdir -p "${install_dir}" || error "Install directory is not writable: ${install_dir}"
     mv "${tmp}/foundation" "${install_dir}/foundation"
-    echo -e "${GREEN}✅ foundation v${version} installed to ${install_dir}/foundation${NC}"
+    echo -e "${GREEN}✓ foundation v${version} installed to ${install_dir}/foundation${NC}"
 
     # Fresh install only: hand PATH setup to the freshly-installed binary. It
     # detects the shell, prompts on /dev/tty (so it works under `curl ... | bash`),
