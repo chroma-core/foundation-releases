@@ -8,10 +8,19 @@ set -eo pipefail
 #   curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-cli/main/install.sh | bash
 #
 # Environment variables:
-#   FOUNDATION_VERSION   Install a specific version instead of the latest stable.
-#                        Accepts "0.0.9", "v0.0.9", or "foundation-cli-v0.0.9".
-#   FOUNDATION_HOME      Install prefix (default: $HOME/.foundation).
-#                        The binary is placed in $FOUNDATION_HOME/bin/foundation.
+#   FOUNDATION_VERSION      Install a specific version instead of the latest
+#                           stable. Accepts "0.0.9", "v0.0.9", or
+#                           "foundation-cli-v0.0.9".
+#   FOUNDATION_HOME         Install prefix (default: $HOME/.foundation). The
+#                           binary is placed in $FOUNDATION_HOME/bin/foundation.
+#   FOUNDATION_INSTALL_DIR  Exact directory to install the binary into. Set by
+#                           `foundation update` to the directory of the running
+#                           binary so the update replaces it in place. Overrides
+#                           FOUNDATION_HOME and skips PATH setup.
+#
+# This script is the single source of truth for the installer. It lives in the
+# (private) chroma-core/foundation repo and is published verbatim to the public
+# chroma-core/foundation-cli mirror by the release workflow.
 # ----------------------------------------------------------------------------
 
 GITHUB_REPO="chroma-core/foundation-cli"
@@ -106,15 +115,28 @@ install_binary() {
     [ -f "${tmp}/foundation" ] || error "Binary 'foundation' not found in ${asset}."
     chmod +x "${tmp}/foundation"
 
-    mkdir -p "${FOUNDATION_HOME}/bin"
-    mv "${tmp}/foundation" "${FOUNDATION_HOME}/bin/foundation"
-    echo -e "${GREEN}✅ foundation v${version} installed to ${FOUNDATION_HOME}/bin/foundation${NC}"
+    # Where the binary lands. `foundation update` sets FOUNDATION_INSTALL_DIR to
+    # the directory of the running binary so the update overwrites it in place
+    # rather than dropping a second copy somewhere else on (or off) the PATH. A
+    # fresh install uses $FOUNDATION_HOME/bin, which setup-path (below) wires up.
+    local install_dir
+    if [ -n "${FOUNDATION_INSTALL_DIR:-}" ]; then
+        install_dir="${FOUNDATION_INSTALL_DIR}"
+    else
+        install_dir="${FOUNDATION_HOME}/bin"
+    fi
+    mkdir -p "${install_dir}" || error "Install directory is not writable: ${install_dir}"
+    mv "${tmp}/foundation" "${install_dir}/foundation"
+    echo -e "${GREEN}✅ foundation v${version} installed to ${install_dir}/foundation${NC}"
 
-    # Hand PATH setup to the freshly-installed binary: it detects the shell,
-    # prompts on /dev/tty (so it works under `curl ... | bash`), edits the rc
-    # file, and handles the already-on-PATH / unsupported-shell / no-tty cases
-    # itself. `|| true` so a PATH hiccup never fails an otherwise-good install.
-    "${FOUNDATION_HOME}/bin/foundation" setup-path || true
+    # Fresh install only: hand PATH setup to the freshly-installed binary. It
+    # detects the shell, prompts on /dev/tty (so it works under `curl ... | bash`),
+    # edits the rc file, and handles the already-on-PATH / unsupported-shell /
+    # no-tty cases itself. `|| true` so a PATH hiccup never fails an otherwise-good
+    # install. Skipped during `foundation update`, where the PATH is already set.
+    if [ -z "${FOUNDATION_INSTALL_DIR:-}" ]; then
+        "${install_dir}/foundation" setup-path || true
+    fi
 }
 
 main() {
