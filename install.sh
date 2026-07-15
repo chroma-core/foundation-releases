@@ -27,12 +27,42 @@ GITHUB_REPO="chroma-core/foundation-cli"
 RELEASE_PREFIX="foundation-cli"
 FOUNDATION_HOME="${FOUNDATION_HOME:-${HOME}/.foundation}"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-NC='\033[0m'
+# Semantic colors for installer stdout. Basic ANSI green (32) often renders as
+# olive/"puke yellow" on common themes — use the same vivid truecolor green as
+# `foundation init` (RGB 0,175,0). Grey labels / orange code match Claude Code
+# installer styling. Disabled when stdout isn't a TTY so pipes/logs stay clean.
+if [ -t 1 ]; then
+    GREEN='\033[38;2;0;175;0m'
+    GREY='\033[38;2;128;128;128m'
+    ORANGE='\033[38;2;255;140;0m'
+    NC='\033[0m'
+else
+    GREEN='' GREY='' ORANGE='' NC=''
+fi
+
+# stderr gets color when stderr is a TTY (errors should stay visible when
+# stdout is piped).
+if [ -t 2 ]; then
+    ERR_RED='\033[0;31m'
+    ERR_NC='\033[0m'
+else
+    ERR_RED='' ERR_NC=''
+fi
+
+label() {
+    echo -e "${GREY}$1${NC}"
+}
+
+code() {
+    echo -e "${ORANGE}$1${NC}"
+}
+
+ok() {
+    echo -e "${GREEN}$1${NC}"
+}
 
 error() {
-    echo -e "${RED}Error: $1${NC}" >&2
+    echo -e "${ERR_RED}Error: $1${ERR_NC}" >&2
     exit 1
 }
 
@@ -89,6 +119,15 @@ resolve_tag() {
     fi
 }
 
+# Shorten $HOME prefix to ~ for Location display (custom prefixes stay absolute).
+display_home_path() {
+    local path="$1"
+    case "${path}" in
+        "${HOME}"/*) echo "~${path#"${HOME}"}" ;;
+        *) echo "${path}" ;;
+    esac
+}
+
 # Download, verify, and install the binary for TAG.
 install_binary() {
     local tag="$1"
@@ -100,13 +139,13 @@ install_binary() {
     tmp=$(mktemp -d)
     trap 'rm -rf "${tmp}"' EXIT
 
-    echo "Downloading ${asset} (${tag})..."
+    echo -e "${GREY}Downloading ${NC}${ORANGE}${asset}...${NC}"
     curl -fsSL -o "${tmp}/${asset}" "${base}/${asset}" \
         || error "Download failed: ${base}/${asset}\nDoes the release exist? https://github.com/${GITHUB_REPO}/releases/tag/${tag}"
     curl -fsSL -o "${tmp}/${asset}.sha256" "${base}/${asset}.sha256" \
         || error "Checksum file not found: ${base}/${asset}.sha256"
 
-    echo "Verifying checksum..."
+    echo -e "${GREY}Verifying checksum...${NC}"
     # The sidecar references the bare filename, so verify from inside ${tmp}.
     ( cd "${tmp}" && ${SHA_CHECK} "${asset}.sha256" >/dev/null ) \
         || error "Checksum verification FAILED for ${asset}. Aborting — the download may be corrupt or tampered with."
@@ -127,28 +166,41 @@ install_binary() {
     fi
     mkdir -p "${install_dir}" || error "Install directory is not writable: ${install_dir}"
     mv "${tmp}/foundation" "${install_dir}/foundation"
-    echo -e "${GREEN}✓ foundation v${version} installed to ${install_dir}/foundation${NC}"
+
+    local bin_path="${install_dir}/foundation"
+    local display_path
+    display_path=$(display_home_path "${bin_path}")
+
+    # Claude-like success summary: vivid green check, grey labels, orange code.
+    echo ""
+    ok "✔ Installed successfully!"
+    echo ""
+    echo -e "  ${GREY}Version:${NC}  ${version}"
+    echo -e "  ${GREY}Location:${NC} ${ORANGE}${display_path}${NC}"
+    echo ""
+    echo -e "  ${GREY}Next:${NC} Run ${ORANGE}foundation --help${NC} to get started"
 
     # Fresh install only: hand PATH setup to the freshly-installed binary. It
     # detects the shell, prompts on /dev/tty (so it works under `curl ... | bash`),
     # edits the rc file, and handles the already-on-PATH / unsupported-shell /
     # no-tty cases itself. `|| true` so a PATH hiccup never fails an otherwise-good
     # install. Skipped during `foundation update`, where the PATH is already set.
+    # Blank line before setup-path so any prompt/output doesn't collide with Next.
     if [ -z "${FOUNDATION_INSTALL_DIR:-}" ]; then
+        echo ""
         "${install_dir}/foundation" setup-path || true
     fi
 }
 
 main() {
-    echo "Installing the Foundation CLI..."
+    label "Installing Foundation..."
+    echo ""
     require curl
     require tar
     detect_platform
     pick_checksum_tool
     resolve_tag
     install_binary "${TAG}"
-    echo ""
-    echo "Done. Run 'foundation --help' to get started."
 }
 
 main
