@@ -128,6 +128,13 @@ display_home_path() {
     esac
 }
 
+# True when ~/.chroma/credentials has at least one TOML profile section
+# (shared with chroma-cli). Used to pick the post-install next step.
+has_chroma_profile() {
+    local creds="${HOME}/.chroma/credentials"
+    [ -f "${creds}" ] && grep -qE '^\[' "${creds}"
+}
+
 # Download, verify, and install the binary for TAG.
 install_binary() {
     local tag="$1"
@@ -178,7 +185,12 @@ install_binary() {
     echo -e "  ${GREY}Version:${NC}  ${version}"
     echo -e "  ${GREY}Location:${NC} ${ORANGE}${display_path}${NC}"
     echo ""
-    echo -e "  ${GREY}Next:${NC} Run ${ORANGE}foundation --help${NC} to get started"
+    # No profile yet → login is the logical next step; otherwise --help.
+    if has_chroma_profile; then
+        echo -e "  ${GREY}Next:${NC} Run ${ORANGE}foundation --help${NC} to get started"
+    else
+        echo -e "  ${GREY}Next:${NC} Run ${ORANGE}foundation login${NC} to get started"
+    fi
 
     # Fresh install only: hand PATH setup to the freshly-installed binary. It
     # detects the shell, prompts on /dev/tty (so it works under `curl ... | bash`),
