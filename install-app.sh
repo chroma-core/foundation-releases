@@ -191,22 +191,27 @@ install_app() {
     echo -e "  ${GREY}Location:${NC} ${ORANGE}${display_path}${NC}"
     echo ""
 
-    # Unsigned builds land in quarantine after download; Gatekeeper then claims
-    # the app is "damaged". Clearing quarantine is required until notarization.
-    echo -e "  ${GREY}Gatekeeper:${NC} this build is unsigned. Clear quarantine before opening:"
-    echo ""
-    echo -e "    ${ORANGE}xattr -dr com.apple.quarantine ${display_path}${NC}"
-    echo ""
-
+    # Developer ID + notarized builds should open under Gatekeeper without
+    # clearing quarantine. Keep an optional clear as a fallback for odd local
+    # quarantine states (manual zip copies, corporate MDM, etc.).
     if [ "${FOUNDATION_NO_XATTR:-0}" != "1" ]; then
-        if prompt_yes "Clear quarantine attribute now?"; then
-            xattr -dr com.apple.quarantine "${app_dest}" \
-                || error "xattr failed — run the command above manually, then open the app."
-            ok "✔ Cleared quarantine."
+        if spctl --assess --type execute "${app_dest}" >/dev/null 2>&1; then
+            echo -e "  ${GREY}Gatekeeper:${NC} signed + notarized — ready to open."
             echo ""
         else
-            echo -e "  ${GREY}Skipped.${NC} Run the xattr command above before opening, or macOS may say the app is damaged."
+            echo -e "  ${GREY}Gatekeeper:${NC} assessment failed locally; clear quarantine if macOS blocks open:"
             echo ""
+            echo -e "    ${ORANGE}xattr -dr com.apple.quarantine ${display_path}${NC}"
+            echo ""
+            if prompt_yes "Clear quarantine attribute now?"; then
+                xattr -dr com.apple.quarantine "${app_dest}" \
+                    || error "xattr failed — run the command above manually, then open the app."
+                ok "✔ Cleared quarantine."
+                echo ""
+            else
+                echo -e "  ${GREY}Skipped.${NC} Run the xattr command above if Gatekeeper blocks the app."
+                echo ""
+            fi
         fi
     fi
 
