@@ -5,7 +5,7 @@ set -eo pipefail
 # Foundation Mac app installer
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-cli/main/install-app.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-releases/main/install-app.sh | bash
 #   # or via the install host:
 #   curl -fsSL https://install.foundation | bash
 #   curl -fsSL https://install.foundation/app | bash
@@ -24,10 +24,10 @@ set -eo pipefail
 #
 # This script is the single source of truth for the Mac app installer. It lives
 # in the (private) chroma-core/foundation repo and is published verbatim to the
-# public chroma-core/foundation-cli mirror by the Mac release workflow.
+# public chroma-core/foundation-releases mirror by the Mac release workflow.
 # ----------------------------------------------------------------------------
 
-GITHUB_REPO="chroma-core/foundation-cli"
+GITHUB_REPO="chroma-core/foundation-releases"
 RELEASE_PREFIX="foundation-mac"
 FOUNDATION_APP_DIR="${FOUNDATION_APP_DIR:-${HOME}/Applications}"
 

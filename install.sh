@@ -5,7 +5,7 @@ set -eo pipefail
 # Foundation CLI installer
 #
 # Usage:
-#   curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-cli/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-releases/main/install.sh | bash
 #
 # Environment variables:
 #   FOUNDATION_VERSION      Install a specific version instead of the latest
@@ -20,10 +20,10 @@ set -eo pipefail
 #
 # This script is the single source of truth for the installer. It lives in the
 # (private) chroma-core/foundation repo and is published verbatim to the public
-# chroma-core/foundation-cli mirror by the release workflow.
+# chroma-core/foundation-releases mirror by the release workflow.
 # ----------------------------------------------------------------------------
 
-GITHUB_REPO="chroma-core/foundation-cli"
+GITHUB_REPO="chroma-core/foundation-releases"
 RELEASE_PREFIX="foundation-cli"
 FOUNDATION_HOME="${FOUNDATION_HOME:-${HOME}/.foundation}"
 
