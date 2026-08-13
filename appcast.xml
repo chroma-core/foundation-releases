@@ -3,6 +3,31 @@
     <channel>
         <title>Foundation</title>
         <item>
+            <title>0.5.10</title>
+            <pubDate>Thu, 13 Aug 2026 17:39:32 +0000</pubDate>
+            <link>https://foundation.trychroma.com</link>
+            <sparkle:version>31726123191</sparkle:version>
+            <sparkle:shortVersionString>0.5.10</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[# v0.5.10 (2026-08-13)
+
+Signed and notarized Release build of Foundation for macOS arm64.
+
+Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
+
+Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
+
+## Opening the app
+
+Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
+
+## Changes
+
+* [BUG](mac): Don't let bash 3.2 eat $DMG_PATH before the ellipsis]]></description>
+            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.10/foundation-mac-v0.5.10_darwin_arm64.dmg" length="26646461" type="application/octet-stream" sparkle:edSignature="78EXCfiX6wcYtxAKP9ek9VJygY0Qpfh2Y8Mp8lcs3ydVR747kH84C2iaLg2gz9mtE7tXALEc95P9ATXO5ruiBg=="/>
+        </item>
+        <item>
             <title>0.5.8</title>
             <pubDate>Wed, 12 Aug 2026 23:15:21 +0000</pubDate>
             <link>https://foundation.trychroma.com</link>
