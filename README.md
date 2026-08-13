@@ -6,38 +6,16 @@ Public distribution point for prebuilt **Foundation** binaries:
 - **Mac app** (`Foundation.app`) — `foundation-mac-v*` releases
 
 Source is **closed** and is built in a private Chroma repository. This repository
-contains **only compiled release artifacts and install scripts** — it is not the
-source. Releases here are published automatically by CI on each tagged build.
+contains **only compiled release artifacts** — it is not the source. Releases here
+are published automatically by CI on each tagged build.
 
 ## Install
 
-### Mac app (default)
+Download the latest Mac app from https://install.foundation (or the
+[Releases](https://github.com/chroma-core/foundation-releases/releases) page).
+Open the disk image and drag `Foundation.app` onto Applications.
 
-```sh
-curl -fsSL https://install.foundation | bash
-# or:
-curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-releases/main/install-app.sh | bash
-```
-
-### CLI
-
-```sh
-curl -fsSL https://install.foundation/cli | bash
-# or:
-curl -fsSL https://raw.githubusercontent.com/chroma-core/foundation-releases/main/install.sh | bash
-```
-
-The CLI installer downloads the right binary for your platform, verifies its
-sha256, and installs it to `~/.foundation/bin/foundation`.
-
-CLI options (environment variables):
-
-- `FOUNDATION_VERSION` — install a specific version (e.g. `FOUNDATION_VERSION=0.0.9`)
-  instead of the latest stable release.
-- `FOUNDATION_HOME` — install prefix (default `~/.foundation`); the binary lands in
-  `$FOUNDATION_HOME/bin`.
-
-Currently supported: macOS (Apple Silicon). More platforms to follow.
+The CLI ships inside the app at `Contents/Resources/foundation`.
 
 ## Downloads (manual)
 
