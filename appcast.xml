@@ -3,6 +3,35 @@
     <channel>
         <title>Foundation</title>
         <item>
+            <title>0.5.11</title>
+            <pubDate>Thu, 13 Aug 2026 23:59:35 +0000</pubDate>
+            <link>https://foundation.trychroma.com</link>
+            <sparkle:version>31755333604</sparkle:version>
+            <sparkle:shortVersionString>0.5.11</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[# v0.5.11 (2026-08-13)
+
+Signed and notarized Release build of Foundation for macOS arm64.
+
+Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
+
+Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
+
+## Opening the app
+
+Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
+
+## Changes
+
+* [BUG](mac): Ship the installer DMG as APFS (#430)
+* [BUG](mac): Don't let bash 3.2 eat $DMG_PATH before the ellipsis (#422)
+* [ENH](mac): Remember the quit choice (#427)
+* [ENH] Add sign out menu item (#428)
+* [ENH] Fix xcodes warning about copying info.plist (#424)]]></description>
+            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.11/foundation-mac-v0.5.11_darwin_arm64.dmg" length="26672143" type="application/octet-stream" sparkle:edSignature="NYYDr4Aqc4iUaP0vJXlTxxKEzw41IKTlbZ53CLM3QtJVE1s/jaNIR9KaJK3ON63DiMIZJTcmLAC/578sLY97Cg=="/>
+        </item>
+        <item>
             <title>0.5.10</title>
             <pubDate>Thu, 13 Aug 2026 17:39:32 +0000</pubDate>
             <link>https://foundation.trychroma.com</link>
@@ -52,32 +81,6 @@ Prefer `curl -fsSL https://install.foundation | bash`. Direct zip installs shoul
 * [BUG](mac): Stop advertising connect_and_install_slack until UI ships
 * [BLD](mac): Re-sign Sparkle nested helpers for notarization (#415)]]></description>
             <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.8/foundation-mac-v0.5.8_darwin_arm64.zip" length="24620173" type="application/octet-stream" sparkle:edSignature="bgWq4TnfZeDGvnlr4u3QXknfDOUPm0ZmjLub/bk2ig1iXiIZzYTTD3t1uZOX6DBpCZZIwr6TiyLXVGARZvcUDw=="/>
-        </item>
-        <item>
-            <title>0.5.6</title>
-            <pubDate>Wed, 12 Aug 2026 21:40:15 +0000</pubDate>
-            <link>https://foundation.trychroma.com</link>
-            <sparkle:version>31643247969</sparkle:version>
-            <sparkle:shortVersionString>0.5.6</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.6 (2026-08-12)
-
-Signed and notarized Release build of Foundation for macOS arm64.
-
-Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
-
-Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
-
-## Opening the app
-
-Prefer `curl -fsSL https://install.foundation | bash`. Direct zip installs should open normally (Developer ID + notarized).
-
-## Changes
-
-* [BUG](mac): Stop advertising connect_and_install_slack until UI ships
-* [BLD](mac): Re-sign Sparkle nested helpers for notarization]]></description>
-            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.6/foundation-mac-v0.5.6_darwin_arm64.zip" length="24620251" type="application/octet-stream" sparkle:edSignature="j8unepC55Mp7PYJGT7WxnCqLUsUcYnjg3CZfE5qvS3JtMwlCOxFTALV0RaXz8ah0Ak9BSAf0cHN2rl1ESCnYDQ=="/>
         </item>
     </channel>
 </rss>
