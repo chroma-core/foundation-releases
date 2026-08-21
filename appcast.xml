@@ -3,6 +3,31 @@
     <channel>
         <title>Foundation</title>
         <item>
+            <title>0.5.20</title>
+            <pubDate>Fri, 21 Aug 2026 18:25:44 +0000</pubDate>
+            <link>https://foundation.trychroma.com</link>
+            <sparkle:version>32512619356</sparkle:version>
+            <sparkle:shortVersionString>0.5.20</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[# v0.5.20 (2026-08-21)
+
+Signed and notarized Release build of Foundation for macOS arm64.
+
+Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
+
+Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
+
+## Opening the app
+
+Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
+
+## Changes
+
+* [BUG] Avoid orphan status rows for duplicate coding-agent uploads (#470)]]></description>
+            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.20/foundation-mac-v0.5.20_darwin_arm64.dmg" length="23111295" type="application/octet-stream" sparkle:edSignature="dHfTdnNCdo0I++PPKsmDx94EiaO+xekgxnF9GomzY1Acemu7dgYHQxSRpQvTKBfq59HNiwjnRBRfLTED3NgeAw=="/>
+        </item>
+        <item>
             <title>0.5.19</title>
             <pubDate>Fri, 21 Aug 2026 15:24:29 +0000</pubDate>
             <link>https://foundation.trychroma.com</link>
@@ -52,40 +77,6 @@ Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads sh
 * [BUG](mac): Ship PostHog token in Info.plist (#466)
 * [CLN](cli): Drop leftover reqwest and --api-url (#456)]]></description>
             <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.18/foundation-mac-v0.5.18_darwin_arm64.dmg" length="23130384" type="application/octet-stream" sparkle:edSignature="+7S9da9tYXxvtjFONDIA5uDTKgEAEJYb8+5n4w2tOb5yApWUCRtGJ7XuOanlTpObr0L3jFgRy3i/NGHnxPgoDw=="/>
-        </item>
-        <item>
-            <title>0.5.16</title>
-            <pubDate>Wed, 19 Aug 2026 16:33:00 +0000</pubDate>
-            <link>https://foundation.trychroma.com</link>
-            <sparkle:version>32275745133</sparkle:version>
-            <sparkle:shortVersionString>0.5.16</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.16 (2026-08-19)
-
-Signed and notarized Release build of Foundation for macOS arm64.
-
-Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
-
-Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
-
-## Opening the app
-
-Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
-
-## Changes
-
-* [CLN](cli): Drop leftover CLI facades (#455)
-* [CLN](cli): Remove unused TTY spinner (#454)
-* [ENH](mac): Disconnect the remaining sources (#449)
-* [ENH](mac): Disconnect Granola from desktop (#451)
-* [ENH](mac): Disconnect Drive by account id (#453)
-* [ENH](mac): List Granola connections in facts (#450)
-* [CLN]: Drop stale copy of deleted CLI commands (#452)
-* [ENH] Disable adding login item in DEBUG (#446)
-* [ENH](mac): Disconnect Google Drive from desktop (#447)
-* [ENH](mac): List Drive accounts in facts (#448)]]></description>
-            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.16/foundation-mac-v0.5.16_darwin_arm64.dmg" length="23130020" type="application/octet-stream" sparkle:edSignature="0ciU9ZIUY0NObmvQ4Ez26br1hurbu0lAHcZEOo4zQR8vgQ2dTVfR/gBRz0HjkInMjAVfgyqOJqkJXs+xE+4mCw=="/>
         </item>
     </channel>
 </rss>
