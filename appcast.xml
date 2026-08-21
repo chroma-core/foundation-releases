@@ -3,6 +3,31 @@
     <channel>
         <title>Foundation</title>
         <item>
+            <title>0.5.19</title>
+            <pubDate>Fri, 21 Aug 2026 15:24:29 +0000</pubDate>
+            <link>https://foundation.trychroma.com</link>
+            <sparkle:version>32496695431</sparkle:version>
+            <sparkle:shortVersionString>0.5.19</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description sparkle:format="markdown"><![CDATA[# v0.5.19 (2026-08-21)
+
+Signed and notarized Release build of Foundation for macOS arm64.
+
+Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
+
+Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
+
+## Opening the app
+
+Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
+
+## Changes
+
+* [BUG](foundation-core): Never retry a 409 from /add-file (#467)]]></description>
+            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.19/foundation-mac-v0.5.19_darwin_arm64.dmg" length="23113406" type="application/octet-stream" sparkle:edSignature="MhNWLcf5IypHjzdrRsrV4nnFjyjcHR+QqLBnIGOyx46O2CkFD0Y0DHfHiLUp26IIsRCpGaJtpBKW4U18MH3uCQ=="/>
+        </item>
+        <item>
             <title>0.5.18</title>
             <pubDate>Thu, 20 Aug 2026 23:00:57 +0000</pubDate>
             <link>https://foundation.trychroma.com</link>
@@ -61,32 +86,6 @@ Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads sh
 * [ENH](mac): Disconnect Google Drive from desktop (#447)
 * [ENH](mac): List Drive accounts in facts (#448)]]></description>
             <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.16/foundation-mac-v0.5.16_darwin_arm64.dmg" length="23130020" type="application/octet-stream" sparkle:edSignature="0ciU9ZIUY0NObmvQ4Ez26br1hurbu0lAHcZEOo4zQR8vgQ2dTVfR/gBRz0HjkInMjAVfgyqOJqkJXs+xE+4mCw=="/>
-        </item>
-        <item>
-            <title>0.5.15</title>
-            <pubDate>Sat, 15 Aug 2026 01:31:45 +0000</pubDate>
-            <link>https://foundation.trychroma.com</link>
-            <sparkle:version>31856396277</sparkle:version>
-            <sparkle:shortVersionString>0.5.15</sparkle:shortVersionString>
-            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
-            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
-            <description sparkle:format="markdown"><![CDATA[# v0.5.15 (2026-08-15)
-
-Signed and notarized Release build of Foundation for macOS arm64.
-
-Defaults to production (`https://foundation.trychroma.com`). Uses the saved default CLI profile.
-
-Includes a bundled `foundation` CLI at `Foundation.app/Contents/Resources/foundation` (same version as this Mac release).
-
-## Opening the app
-
-Open the `.dmg` and drag `Foundation.app` onto Applications. Direct downloads should open normally (Developer ID + notarized).
-
-## Changes
-
-* [CLN](cli): Remove debug and completion (#443)
-* [CLN](cli): Remove login, logout, profile (#442)]]></description>
-            <enclosure url="https://github.com/chroma-core/foundation-releases/releases/download/foundation-mac-v0.5.15/foundation-mac-v0.5.15_darwin_arm64.dmg" length="23093561" type="application/octet-stream" sparkle:edSignature="ibE+DbmDD7dB1m0Gg/O5EiGDFeCCaF7GoYfanOHzOvHs2R/jak5GoZQh/kl6rJJSZzzv4z30F/6eoqYlva3YDQ=="/>
         </item>
     </channel>
 </rss>
